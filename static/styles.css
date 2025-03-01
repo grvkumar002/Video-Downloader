@@ -1,0 +1,100 @@
+/* General Page Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container for the content */
+.container {
+    background: white;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+}
+
+/* Headings */
+h1 {
+    font-size: 22px;
+    margin-bottom: 15px; /* Space below title */
+}
+
+/* Label Styling */
+label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Input Field */
+#video_url {
+    width: 100%;
+    max-width: 500px;
+    height: 45px;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #333;
+    outline: none;
+    transition: 0.3s ease-in-out;
+    margin-bottom: 15px; /* Space below input field */
+}
+
+/* Input Field Focus Effect */
+#video_url:focus {
+    border-color: #ff4757;
+    box-shadow: 0 0 8px rgba(255, 71, 87, 0.5);
+}
+
+/* Buttons */
+button {
+    background: #ff4757;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+    margin-top: 10px; /* Space between buttons */
+}
+
+/* Hover effect */
+button:hover {
+    background: #e84118;
+}
+
+/* Reset Button */
+.reset-btn {
+    background: #57606f;
+    margin-top: 10px; /* Space between download and reset button */
+}
+
+.reset-btn:hover {
+    background: #2f3640;
+}
+
+/* Video Quality Selection */
+#quality {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 15px; /* Space below select dropdown */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 500px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+}

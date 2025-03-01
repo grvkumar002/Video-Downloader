@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Downloader</title>
+    <script>
+        async function fetchFormats() {
+            const videoUrl = document.getElementById("video_url").value;
+            if (!videoUrl) {
+                alert("Please enter a valid YouTube URL!");
+                return;
+            }
+
+            document.getElementById("formats").innerHTML = "Fetching formats...";
+            const response = await fetch("/get_formats", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ video_url: videoUrl }),
+            });
+
+            const data = await response.json();
+            if (data.error) {
+                document.getElementById("formats").innerHTML = "Error: " + data.error;
+                return;
+            }
+
+            let formatOptions = "<option value=''>Select Format</option>";
+            data.formats.forEach(format => {
+                formatOptions += `<option value="${format.format_id}">${format.resolution}p - ${format.extension}</option>`;
+            });
+
+            document.getElementById("formats").innerHTML = formatOptions;
+        }
+
+        async function downloadVideo() {
+            const videoUrl = document.getElementById("video_url").value;
+            const formatId = document.getElementById("formats").value;
+            if (!videoUrl || !formatId) {
+                alert("Please select a format!");
+                return;
+            }
+
+            document.getElementById("status").innerText = "Downloading...";
+            const response = await fetch("/download", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ video_url: videoUrl, format_id: formatId }),
+            });
+
+            const data = await response.json();
+            document.getElementById("status").innerText = data.error ? "❌ " + data.error : data.message;
+        }
+
+        function resetForm() {
+            document.getElementById("video_url").value = "";
+            document.getElementById("formats").innerHTML = "";
+            document.getElementById("status").innerText = "";
+        }
+    </script>
+</head>
+<body>
+    <h2>YouTube/Website(1000+) Video Downloader</h2>
+
+    <label>Enter YouTube/Website URL:</label>
+    <input type="text" id="video_url" placeholder="Paste YouTube/Website link here">
+    <button onclick="fetchFormats()">Get Formats</button>
+
+    <br><br>
+    <label>Select Video Quality:</label>
+    <select id="formats"></select>
+
+    <button onclick="downloadVideo()">Download</button>
+    <button onclick="resetForm()">Reset</button>
+
+    <p id="status"></p>
+</body>
+</html>
